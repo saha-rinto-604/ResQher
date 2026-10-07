@@ -23,3 +23,8 @@ yarn-error.log
 /.vscode
 /.zed
 /bootstrap/cache/*
+
+# Local environment values
+.env
+.env.*
+!.env.example

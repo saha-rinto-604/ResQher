@@ -1,102 +1,69 @@
-<<<<<<< HEAD
+# ResQher
 
-# ResQher - SOS Alert & Live Location Tracking
+![ResQher — Community safety web prototype](docs/branding/hero.svg)
 
-ResQher is a web application designed to help users in distress by allowing them to send SOS alerts. Other users, including volunteers and law enforcement, can track the user's live location and offer assistance.
+An earlier Laravel web prototype exploring community safety through location sharing, incident history, and coordination between users, volunteers, law enforcement, and administrators. This is a separate codebase from the newer [SheSafe mobile project](https://github.com/saha-rinto-604/SheSafe).
 
-## Features
+## Source-backed scope
 
-- **Admin Panel**: Manages users and oversees alerts.
-- **User Types**: 4 types of users – Admin, User, Volunteer, Law Enforcement.
-- **SOS Alerts**: Users can create an SOS alert when in danger.
-- **Live Location Tracking**: Other users can track the user's location in real-time.
-- **MySQL Database**: Stores user data, SOS alerts, and location information.
+- Authentication and user profile routes.
+- User location storage, stopping location sharing, and helper-coordinate queries.
+- Volunteer and law-enforcement availability and location workflows.
+- Administrative user lists and approval routes.
+- Incident-history models and views.
 
-## Server Requirements
+Inspect [routes/web.php](routes/web.php), [controllers](app/Http/Controllers), and [database migrations](database/migrations) for exact behavior. This repository is a prototype and needs security and operational review before deployment. No emergency-service reliability is claimed.
 
-- PHP >= 8.3
-- MySQL Database
+## Stack and structure
 
-## Installation
+PHP, Laravel 12, Blade, MySQL configuration, and Vite for frontend assets. `composer.json` declares PHP `^8.2`; use a runtime compatible with all locked dependencies.
 
-### Prerequisites
-
-Ensure you have the following installed:
-
-- PHP >= 8.3
-- Composer
-- MySQL
-
-### Steps
-
-1. **Clone the repository**
-
-```bash
-git clone https://github.com/iamsuzon/resqher.git
-cd resqher
+```text
+app/Http/Controllers/   User, volunteer, law-enforcement, and admin logic
+resources/views/       Blade templates
+routes/web.php         Browser routes and middleware
+database/migrations/   Application schema
+public/assets/         Existing frontend assets
 ```
 
-2. **Install PHP dependencies**
+## Local setup
+
+Use PHP, Composer, MySQL, and Node.js/npm. Review environment configuration before starting, and use a disposable database with synthetic test users and locations.
 
 ```bash
+git clone https://github.com/saha-rinto-604/ResQher.git
+cd ResQher
 composer install
+npm ci
 ```
 
-3. **Set up your environment file**
-
-Copy the `.env.example` file to `.env`:
-
-```bash
-cp .env.example .env
-```
-
-4. **Generate the application key**
+Create a fresh local `.env` using Laravel's environment conventions and your own database settings. Do not reuse committed environment values or credentials. Set `APP_ENV=local`, disable debug output on any shared deployment, and configure the database connection.
 
 ```bash
 php artisan key:generate
-```
-
-5. **Set up the database**
-
-Update your `.env` file with the correct database connection settings.
-
-Run the migrations to set up the database tables:
-
-```bash
 php artisan migrate
-```
-
-6. **Serve the application**
-
-```bash
+npm run build
 php artisan serve
 ```
 
-The application will be available at `http://localhost:8000`.
+Open `http://localhost:8000`. The root redirects to `/login`. Do not run database seeding on valuable data; review seeders first.
 
-## Usage
+## Route guide
 
-Once the application is up and running, you can:
+| Area | Example route |
+| --- | --- |
+| Authentication | `/login`, `/register` |
+| User workspace | `/user/dashboard`, `/user/profile`, `/user/incident-history` |
+| Volunteer workspace | `/volunteer/dashboard` |
+| Law-enforcement workspace | `/law-enforcement/dashboard` |
+| Administration | `/admin/dashboard` |
 
-- Admin: Manage users and oversee alerts.
-- Users: Create SOS alerts and track other users’ locations.
-- Volunteers/Law Enforcement: Receive alerts and track users' live location to offer assistance.
+## Limitations and next steps
 
-### Routes
+This presentation refresh does not certify runtime behavior. Review authorization, state-changing HTTP routes, operational endpoints, environment handling, and privacy before any external deployment. Add workflow and access-control tests, document delivery constraints, and use synthetic data in demonstrations.
 
-- `/` – Home page (user login page)
-- `/admin` – Admin dashboard
-- `/alert` – Create and manage SOS alerts
-- `/track` – Track live location of a user
+Existing images under `public/assets` include template/demo assets; they should not be presented as screenshots of verified product behavior. Separate interface-design PDFs are available in [ResQher_Figma_Design](https://github.com/saha-rinto-604/ResQher_Figma_Design).
 
-## Contribution
+## Attribution
 
-Feel free to fork the repository and submit pull requests for new features or bug fixes.
-
-## License
-
-This application is open-source and available under the [MIT License](LICENSE).
-=======
-# ResQher
-A Women safety app
->>>>>>> 3b34ce3da511da6c4e15c5453c2e587ffc26756c
+The previous README referred to the upstream `iamsuzon/resqher` project. That attribution is retained here; the clone instructions above point to this repository. Preserve original notices and Git history. The Laravel framework is MIT licensed; verify project-specific licensing and third-party asset licenses before redistribution.
